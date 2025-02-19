@@ -42,7 +42,8 @@ export default function TodayScreen() {
       setDescription('');
       Alert.alert('Success', 'Entry saved successfully!');
     } catch (error) {
-      Alert.alert('Error', 'Failed to save entry. Please try again.');
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      Alert.alert('Error', `Failed to save entry: ${errorMessage}`);
       console.error('Error saving entry:', error);
     } finally {
       setIsSubmitting(false);

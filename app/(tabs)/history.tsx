@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, FlatList, RefreshControl, Alert } from 'react-native';
 import { supabase } from '../../lib/supabase';
 import { format } from 'date-fns';
 
@@ -26,6 +26,8 @@ export default function HistoryScreen() {
       if (error) throw error;
       setEntries(data || []);
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      Alert.alert('Error', `Failed to fetch entries: ${errorMessage}`);
       console.error('Error fetching entries:', error);
     } finally {
       setLoading(false);
